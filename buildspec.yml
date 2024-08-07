@@ -22,5 +22,4 @@ phases:
       - printf '[{"name":"wordscape-admin-api-backend","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
 artifacts:
   files:
-    - appspec.yml
     - imagedefinitions.json
