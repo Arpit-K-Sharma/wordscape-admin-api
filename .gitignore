@@ -7,5 +7,8 @@
 /dataSources/
 /dataSources.local.xml
 .idea
-__pycache__
+**/__pycache__/
+.env
+*.env
 .venv/
+config.ini

@@ -9,8 +9,9 @@ orders_collection = database_erp.order
 user_collection = database.user
 cover_collection = database_erp.coverTreatment
 paper_collection = database_erp.paper
+inventory_collection = database.inventory
 
-department_collection = database_erp.department
+department_collection = database_erp.department 
 staff_collection = database_erp.user
 leave_collection = database_erp.leave
 holiday_collection = database_erp.holiday

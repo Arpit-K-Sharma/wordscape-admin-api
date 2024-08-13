@@ -1,14 +1,13 @@
-import os
-from dotenv import load_dotenv
 from fastapi import HTTPException, UploadFile
+import configparser
 import boto3
 from botocore.exceptions import ClientError
 from starlette.status import HTTP_415_UNSUPPORTED_MEDIA_TYPE
 import uuid
 import asyncio
 
-# Load environment variables from .env file
-load_dotenv()
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 class FileService:
 
@@ -18,17 +17,17 @@ class FileService:
         if not any(file.filename.lower().endswith(ext) for ext in allowed_extensions):
             raise HTTPException(
                 status_code=HTTP_415_UNSUPPORTED_MEDIA_TYPE,
-                detail="Only PDF, JPEG, and PNG files are allowed"
+                detail="Only PDF, JPEG and PNG files are allowed"
             )
         
         s3 = boto3.client(
             's3',
-            aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-            aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
-            region_name=os.getenv('AWS_REGION_NAME')
+            aws_access_key_id=config['aws']['aws_access_key_id'],
+            aws_secret_access_key=config['aws']['aws_secret_access_key'],
+            region_name=config['aws']['aws_region_name']
         )
-        prefix = os.getenv("AWS_S3_KEY_PREFIX")
-        bucket_name = os.getenv('AWS_BUCKET_NAME')
+        prefix = config["aws"]["aws_s3_key_prefix"]
+        bucket_name = config['aws']['aws_bucket_name']
 
         async def upload_to_s3(file_content: bytes, file_path: str):
             try:

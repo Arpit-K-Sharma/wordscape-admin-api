@@ -1,8 +1,7 @@
-from app.config.db_config import user_collection
+from app.config.db_config import staff_collection
 
 class AdminRepository:
 
     @staticmethod
     async def get_admin() -> dict:
-        admin = await user_collection.find_one({"role":"ROLE_ADMIN"})
-        return admin
+        return await staff_collection.find_one({"role":"ROLE_ADMIN"})
