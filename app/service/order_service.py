@@ -146,7 +146,8 @@ class OrderService:
     async def download_pdf(self, filename: str) -> bytes:
         logger.info(f"Downloading PDF for: {filename}")
         try:
-            response = self.s3_client.get_object(Bucket=self.bucket_name, Key=filename)
+            key = filename.replace('\\', '/')
+            response = self.s3_client.get_object(Bucket=self.bucket_name, Key=key)
             return response['Body'].read()
         except Exception as e:
             logger.error(f"Failed to download file from S3: {e}")
@@ -158,7 +159,7 @@ class OrderService:
             raise ValueError("Order not found")
         
         filename = f"{order.orderId}_{order.customer.replace(' ', '_')}"
-        file_path = os.path.join(self.invoice_directory, f"{filename}.pdf")
+        file_path = f"{self.invoice_directory}/{filename}.pdf"
         return await self.download_pdf(file_path)
     
     async def get_pdf_for_order(self, filename:str):
