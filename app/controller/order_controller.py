@@ -1,5 +1,5 @@
 # app/routes/order_route.py
-from fastapi import APIRouter, Depends, Query, HTTPException, File, UploadFile
+from fastapi import APIRouter, Depends, Query, HTTPException, File, Response, UploadFile
 from fastapi.responses import FileResponse
 from typing import List, Optional
 from datetime import datetime
@@ -56,7 +56,13 @@ async def get_invoice_by_id(
     _: dict = Depends(admin_verification)
 ):
     try:
-        invoice_data = await order_service.get_invoice_by_id(id)
+        invoice_data= await order_service.get_invoice_by_id(id)
+        
+        # If the invoice data is binary (e.g., PDF), return it as a Response
+        if isinstance(invoice_data, bytes):
+            return Response(content=invoice_data, media_type="application/pdf")
+        
+        # If it's JSON or other text-based data, return it directly
         return invoice_data
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -69,10 +75,10 @@ async def get_order_pdf_filename(order_id: str, payload = Depends(admin_verifica
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
     
-@order_route.get("orders/file/{filename}")
+@order_route.get("/orders/file/{filename}")
 async def get_pdf_by_filename(filename: str, payload = Depends(admin_verification)):
     try:
         pdf_file = await order_service.get_pdf_for_order(filename)
-        return pdf_file
+        return Response(content=pdf_file, media_type="application/pdf")
     except Exception as e:
         raise HTTPException(status_code=404, detail = str(e))
