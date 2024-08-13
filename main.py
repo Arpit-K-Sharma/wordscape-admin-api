@@ -23,6 +23,18 @@ from app.service.payroll_service import PayrollService
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from app.controller.staff_auth_controller import staff_auth
+from app.controller.binding_controller import binding_route
+from app.controller.ink_controller import ink_route
+from app.controller.lamination_controller import lamination_route
+from app.controller.paper_controller import paper_route
+from app.controller.paper_size_controller import paper_size_route
+from app.controller.paper_thickness_controller import paper_thickness_route
+from app.controller.plate_controller import plate_route
+from app.controller.sheet_size_controller import sheet_size_route
+from app.controller.customer_controller import customer_route
+from app.controller.order_controller import order_route
+from app.controller.project_tracking_controller import project_tracking_router
+from app.controller.job_card_controller import jobCard_route
 
 from datetime import datetime
 
@@ -59,6 +71,20 @@ app.include_router(leave_route, tags = ["leave"])
 app.include_router(holiday_route, tags = ["holiday"])
 app.include_router(attendance_route, tags = ["attendance"])
 app.include_router(payroll_route, tags = ["payroll"])
+
+# ERP ROUTES
+app.include_router(binding_route, tags = ["Binding"])
+app.include_router(ink_route, tags = ["Ink"])
+app.include_router(lamination_route, tags=["Laminations"])
+app.include_router(paper_route, tags=["Papers"])
+app.include_router(paper_size_route, tags=["Paper Sizes"])
+app.include_router(paper_thickness_route, tags=["Paper Thicknesses"])
+app.include_router(plate_route, tags=["Plate"])
+app.include_router(sheet_size_route, tags=["Sheet Size"])
+app.include_router(customer_route, tags=["Customers"])
+app.include_router(order_route, tags=["Orders"])
+app.include_router(project_tracking_router, tags=["Project Tracking"])
+app.include_router(jobCard_route, tags=["JOBCARD"])
 
 # Authentication Routes
 app.include_router(admin_route, tags = ["admin login"])

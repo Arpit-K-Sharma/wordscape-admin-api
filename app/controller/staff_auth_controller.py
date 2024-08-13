@@ -7,5 +7,4 @@ staff_auth = APIRouter()
 
 @staff_auth.post("/staff/login")
 async def login(staff_auth: StaffAuth):
-        print(staff_auth)
         return await staff_login(staff_auth.email, staff_auth.password) 

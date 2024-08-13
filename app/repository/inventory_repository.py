@@ -90,4 +90,40 @@ class InventoryRepository:
             print("No item found with the provided ID.")
         
         return "successful"
+    
+    ################################### ERP MIGRATION CODE ####################################################
+    
+    async def find_items_by_type(self, item_type: str):
+        inventory_item = await database["inventory"].find_one({"type": item_type})
+        return inventory_item['item'] if inventory_item else []
+
+    async def add_item_to_type(self, item_type: str, new_item: dict):
+        result = await database["inventory"].update_one(
+            {"type": item_type},
+            {"$push": {"item": new_item}},
+            upsert=True
+        )
+        return result.modified_count > 0 or result.upserted_id is not None
+
+    async def update_item_in_type(self, item_type: str, updated_item: dict):
+        item_id = updated_item.pop("_id")  # Remove and store the ID
+        
+        # Prepare the update operation
+        update_fields = {}
+        for key, value in updated_item.items():
+            update_fields[f"item.$.{key}"] = value
+
+        # Perform the update only for provided fields
+        result = await database["inventory"].update_one(
+            {"type": item_type, "item._id": ObjectId(item_id)},
+            {"$set": update_fields}
+        )
+        return result.modified_count > 0
+
+    async def remove_item_from_type(self, item_type: str, item_id: str):
+        result = await database["inventory"].update_one(
+            {"type": item_type},
+            {"$pull": {"item": {"_id": ObjectId(item_id)}}}
+        )
+        return result.modified_count > 0
         
