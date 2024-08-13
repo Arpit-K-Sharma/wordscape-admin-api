@@ -2,7 +2,7 @@ import motor.motor_asyncio
 
 client = motor.motor_asyncio.AsyncIOMotorClient('mongodb+srv://spandanbhattarai79:spandan123@spandan.ey3fvll.mongodb.net/')
 
-database = client.Wordscape_Test
+database = client.Wordscape
 collection = database.vendor
 database_erp = client.ERP_V2
 orders_collection = database_erp.order
