@@ -19,7 +19,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode = data.copy()
-    to_encode.update({"role": "staff"}) 
+    to_encode.update({"role": ["ROLE_STAFF"]}) 
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:

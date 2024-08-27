@@ -31,10 +31,12 @@ def verify_token(token: str):
         raise credentials_exception
 
 def is_admin(payload: dict) -> bool:
-    return payload.get("role") == "admin"
+    roles = payload.get("role", [])
+    return "ROLE_ADMIN" in roles
 
 def is_staff(payload: dict) -> bool:
-    return payload.get("role") == "staff"
+    roles = payload.get("role", [])
+    return "ROLE_STAFF" in roles
 
 async def admin_verification(token: str = Depends(oauth2_scheme)):
     payload = verify_token(token)
