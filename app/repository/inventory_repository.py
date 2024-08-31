@@ -1,4 +1,4 @@
-from app.config.db_config import database, database_erp
+from app.config.db_config import database
 from app.models.inventory import InventoryItem, Items
 from app.models.issued_item import IssuedItem
 from fastapi.encoders import jsonable_encoder

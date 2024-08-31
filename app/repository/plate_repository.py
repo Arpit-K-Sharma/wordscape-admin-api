@@ -1,11 +1,11 @@
 # app/repository/plate_repository.py
 from typing import List, Dict
 from bson import ObjectId
-from app.config.db_config import database_erp
+from app.config.db_config import database
 
 class PlateRepository:
     def __init__(self):
-        self.collection = database_erp["plate"]
+        self.collection = database["plate"]
 
     async def find_all_plates(self) -> List[Dict]:
         plates = await self.collection.find().to_list(length=None)

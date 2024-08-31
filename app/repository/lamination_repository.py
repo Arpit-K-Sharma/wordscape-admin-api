@@ -1,10 +1,10 @@
 from typing import List, Dict
 from bson import ObjectId
-from app.config.db_config import database_erp
+from app.config.db_config import database
 
 class LaminationRepository:
     def __init__(self):
-        self.collection = database_erp["lamination"]
+        self.collection = database["lamination"]
 
     async def find_all_laminations(self) -> List[Dict]:
         laminations = await self.collection.find().to_list(length=None)

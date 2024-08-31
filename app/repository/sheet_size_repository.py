@@ -1,11 +1,11 @@
 from bson import ObjectId
 from fastapi import HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
-from app.config.db_config import database_erp
+from app.config.db_config import database
 
 class SheetSizeRepository:
     def __init__(self):
-        self.collection = database_erp["sheetSize"]
+        self.collection = database["sheetSize"]
 
     async def find_all(self) -> list:
         cursor = self.collection.find()

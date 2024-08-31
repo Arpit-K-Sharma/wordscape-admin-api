@@ -1,11 +1,11 @@
 # app/repository/binding_repository.py
 from typing import List, Dict
 from bson import ObjectId
-from app.config.db_config import database_erp
+from app.config.db_config import database
 
 class BindingRepository:
     def __init__(self):
-        self.collection = database_erp["binding"]
+        self.collection = database["binding"]
 
     async def find_all_bindings(self) -> List[Dict]:
         bindings = await self.collection.find().to_list(length=None)

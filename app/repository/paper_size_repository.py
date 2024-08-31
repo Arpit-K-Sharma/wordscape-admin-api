@@ -2,11 +2,11 @@
 from bson import ObjectId
 from fastapi import HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
-from app.config.db_config import database_erp
+from app.config.db_config import database
 
 class PaperSizeRepository:
     def __init__(self):
-        self.collection = database_erp["paperSize"]
+        self.collection = database["paperSize"]
 
     async def create(self, paper_size: dict) -> dict:
         result = await self.collection.insert_one(paper_size)

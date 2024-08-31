@@ -1,11 +1,11 @@
 # app/repository/paper_thickness_repository.py
 from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorClient
-from app.config.db_config import database_erp
+from app.config.db_config import database
 
 class PaperThicknessRepository:
     def __init__(self):
-        self.collection = database_erp["paperThickness"]
+        self.collection = database["paperThickness"]
 
     async def create(self, paper_thickness: dict) -> dict:
         result = await self.collection.insert_one(paper_thickness)

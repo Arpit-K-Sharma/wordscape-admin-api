@@ -1,11 +1,11 @@
 # app/repository/customer_repository.py
 from typing import List, Dict, Tuple
 from bson import ObjectId
-from app.config.db_config import database_erp
+from app.config.db_config import database
 
 class CustomerRepository:
     def __init__(self):
-        self.collection = database_erp["user"]
+        self.collection = database["user"]
 
     async def find_all_customers(self, skip: int, limit: int, sort_field: str, sort_direction: str) -> Tuple[List[dict], int]:
         sort_order = 1 if sort_direction == "asc" else -1

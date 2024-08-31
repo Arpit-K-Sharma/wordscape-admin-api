@@ -1,10 +1,10 @@
 from typing import List, Dict
 from bson import ObjectId
-from app.config.db_config import database_erp
+from app.config.db_config import database
 
 class InkRepository:
     def __init__(self):
-        self.collection = database_erp["ink"]
+        self.collection = database["ink"]
 
     async def find_all_inks(self) -> List[Dict]:
         inks = await self.collection.find().to_list(length=None)

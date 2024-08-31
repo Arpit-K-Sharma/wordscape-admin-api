@@ -1,10 +1,10 @@
 from typing import List, Dict
 from bson import ObjectId
-from app.config.db_config import database_erp
+from app.config.db_config import database
 
 class PaperRepository:
     def __init__(self):
-        self.collection = database_erp["paper"]
+        self.collection = database["paper"]
 
     async def find_all_papers(self) -> List[Dict]:
         papers = await self.collection.find().to_list(length=None)

@@ -1,15 +1,15 @@
 # app/repository/order_repository.py
 from typing import List, Dict, Any
 from bson import ObjectId
-from app.config.db_config import database_erp
+from app.config.db_config import database
 from app.dto.order_dto import OrderDTO, OrderStatus
 
 class OrderRepository:
     def __init__(self):
-        self.collection = database_erp["order"]
-        self.paper_collection = database_erp["paper"]
-        self.lamination_collection = database_erp["lamination"]
-        self.customer_collection = database_erp["user"]
+        self.collection = database["order"]
+        self.paper_collection = database["paper"]
+        self.lamination_collection = database["lamination"]
+        self.customer_collection = database["user"]
 
     async def find_all_orders(self, skip: int, limit: int, sort_field: str, sort_direction: int) -> List[Dict[str, Any]]:
         sort_direction = 1 if sort_direction == "asc" else -1
