@@ -1,6 +1,6 @@
 import motor.motor_asyncio
 
-client = motor.motor_asyncio.AsyncIOMotorClient('mongodb+srv://pukar:pukarpass@cluster0.2xqtwbl.mongodb.net/')
+client = motor.motor_asyncio.AsyncIOMotorClient('mongodb+srv://sarthakshrestha24:password404@cluster0.s12xylp.mongodb.net/')
 
 database = client.WORDSCAPE_PROD
 collection = database.vendor
