@@ -8,7 +8,6 @@ from fastapi.encoders import jsonable_encoder
 class VendorRepository:
 
     async def insert_vendor(self, vendor_data: dict):
-        print(vendor_data)
         result = await database["vendors"].insert_one(vendor_data)
         return result.inserted_id
 

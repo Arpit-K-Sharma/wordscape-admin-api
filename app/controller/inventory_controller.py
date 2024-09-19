@@ -30,7 +30,7 @@ async def get_all_inventory_items(payload: dict = Depends(admin_verification)):
     return get_response(status="success", data=[InventoryDTO(**item).dict(by_alias=True) for item in inventory_items], status_code=200)
 
 @inventory_route.post('/issued_item', response_model=IssuedItemDTO)
-async def post_issued_items(issued: IssuedItemDTO, payload: dict = Depends(admin_verification)):
+async def post_issued_items(issued: IssuedItemDTO):
     created_item = await inventory_service.create_issued_item(IssuedItem(**issued.dict()))
     return get_response(status="success", message=created_item, status_code=201)
 
@@ -40,18 +40,18 @@ async def update_availability(inventoryId: str, itemId: str, availability: int =
     return get_response(status="success", message=updated_availability, status_code=201)
 
 @inventory_route.post("/add-item/{inventoryId}")
-async def add_item(inventoryId: str, item: List[ItemDTO], payload: dict = Depends(admin_verification)):
+async def add_item(inventoryId: str, item: List[ItemDTO]):
     item_data_dict = [item.dict(exclude_none=True) for item in item]
     created_items = [Items(**item_data) for item_data in item_data_dict]
     new_item_count = await inventory_service.add_itemType(inventoryId, created_items)
     return get_response(status="success", message=f"{new_item_count} items added", status_code=201)
 
 @inventory_route.delete("/inventory/{itemId}")
-async def delete_type(itemId: str, payload: dict = Depends(admin_verification)):
+async def delete_type(itemId: str):
     response = await inventory_service.delete_type(itemId)
     return get_response(status="success", message=response, status_code=200)
 
 @inventory_route.delete("/inventory/{inventoryId}/{itemId}")
-async def delete_item(inventoryId: str, itemId: str, payload: dict = Depends(admin_verification)):
+async def delete_item(inventoryId: str, itemId: str):
     response = await inventory_service.delete_item(inventoryId, itemId)
-    return get_response(status="success", message=response, status_code=200)
+    return get_response(status="success", message="Sucessfull", status_code=200)
