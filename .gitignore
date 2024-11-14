@@ -13,3 +13,4 @@
 .venv/
 config.ini
 ./env
+./config.ini
