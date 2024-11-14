@@ -14,3 +14,5 @@
 config.ini
 ./env
 config.ini
+./config
+./config.ini
